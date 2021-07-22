@@ -7,7 +7,7 @@ import { useForm } from '../../../hooks/useForm';
 import BikeCard from '../../ui/BikeCard/BikeCard';
 import Loader from '../../ui/Loader/Loader';
 import Paginate from '../../ui/Paginate/Paginate';
-import { CardsContainer, Filters, FiltersContainer, FormContainer } from './HomeScreen.styles';
+import { CardsContainer, Filters, FiltersContainer, FormContainer, Error } from './HomeScreen.styles';
 
 const HomeScreen = () => {
   const [allButton, setAllButton] = useState(false);
@@ -16,13 +16,15 @@ const HomeScreen = () => {
   const { bikes, quantity } = useSelector(state => state.bikes);
   const { page } = useSelector(state => state.page);
   const { loading } = useSelector(state => state.loader);
+  const { error } = useSelector(state => state.error);
+  const { countLoading } = useSelector(state => state.loader);
   
   const [ formValues, handleInputChange, reset ] = useForm({ keyword: '' })
   const { keyword } = formValues;
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    dispatch(getStolenCount());
+    dispatch(getStolenCount(keyword));
     dispatch(getStolenBikes(page));
   }, [page, dispatch]);
 
@@ -60,7 +62,10 @@ const HomeScreen = () => {
             <button type="submit">Search</button>
           </FormContainer>
           <FormContainer all>
-            <p>Total: {quantity}</p>
+            {countLoading
+              ? <p>Loading...</p>
+              : <p>Total: {quantity}</p>
+            }
             {allButton && <button onClick={getAllStolen}>Se all</button>}
           </FormContainer>
         </Filters>
@@ -69,16 +74,19 @@ const HomeScreen = () => {
       {loading
         ? <Loader />
         : <>
-          <CardsContainer>
-            {bikes?.length
-              ? bikes?.map(bike => 
-                  <Link to={`/detail/${bike.id}`} key={bike.id} >
-                    <BikeCard data={bike} />
-                  </Link>
-                )
-              : <p>No results</p>
-            }
-          </CardsContainer>
+          {error
+            ? <Error>Opps, something went wrong</Error>
+            : <CardsContainer>
+                {bikes?.length
+                  ? bikes?.map(bike => 
+                      <Link to={`/detail/${bike.id}`} key={bike.id} >
+                        <BikeCard data={bike} />
+                      </Link>
+                    )
+                  : <p>No results</p>
+                }
+              </CardsContainer>
+          }
         </>
       }
       <Paginate />

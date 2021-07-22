@@ -2,7 +2,8 @@ import { types } from "../types/types"
 import getData from "../services/getData";
 import getDataById from "../services/getDataById";
 import getDataCount from "../services/getDataCount";
-import { startLoading, finishLoading } from "./loader";
+import { startLoading, finishLoading, startCountLoading, finishCountLoading } from "./loader";
+import { errorHandler } from "./errors";
 
 export const getStolenBikes = (page, keyword) => {
   return async (dispatch) => {
@@ -14,8 +15,8 @@ export const getStolenBikes = (page, keyword) => {
       dispatch(finishLoading());
     } catch (error) {
       console.log(error);
+      dispatch(errorHandler())
       dispatch(finishLoading());
-      
     }
   }
 }
@@ -37,6 +38,7 @@ export const getStolenBikeById = (id) => {
       dispatch(finishLoading());
     } catch (error) {
       console.log(error);
+      dispatch(errorHandler())
       dispatch(finishLoading());
     }
   }
@@ -51,9 +53,17 @@ export const setStolenBikeById = (stolenBike) => {
 
 export const getStolenCount = (keyword) => {
   return async (dispatch) => {
-    const quantity = await getDataCount(keyword);
-
-    dispatch(setStolenCount(quantity));
+    try {
+      dispatch(startCountLoading());
+      const quantity = await getDataCount(keyword);
+  
+      dispatch(setStolenCount(quantity));
+      dispatch(finishCountLoading());
+    } catch (error) {
+      console.log(error);
+      dispatch(errorHandler())      
+      dispatch(finishCountLoading());
+    }
   }
 }
 

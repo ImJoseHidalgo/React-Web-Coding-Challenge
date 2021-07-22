@@ -109,3 +109,7 @@ export const FormContainer = styled.form`
     }
   }
 `
+
+export const Error = styled.p`
+  color: red;
+`

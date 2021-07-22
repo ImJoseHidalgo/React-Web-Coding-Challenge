@@ -10,3 +10,14 @@ export const finishLoading = () => {
     type: types.finishLoading
   }
 }
+
+export const startCountLoading = () => {
+  return {
+    type: types.startCountLoading
+  }
+}
+export const finishCountLoading = () => {
+  return {
+    type: types.finishCountLoading
+  }
+}

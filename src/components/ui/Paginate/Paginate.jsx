@@ -10,6 +10,7 @@ const Paginate = () => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
   const { quantity } = useSelector(state => state.bikes);
+  const { countLoading } = useSelector(state => state.loader);
 
   useEffect(() => {
     dispatch(setActualPage(page));
@@ -37,27 +38,32 @@ const Paginate = () => {
 
   return (
     <PaginateContainer>
-      <Button
-        onClick={handleFirstPage}
-        disabled={page === 1 ? true : false}
-      >First</Button>
-      <Button 
-        onClick={handlePrevPage}
-        disabled={page === 1 ? true : false}
-      >Prev</Button>
+      {countLoading
+        ? <p>Loading...</p>
+        : <>
+            <Button
+              onClick={handleFirstPage}
+              disabled={page === 1 ? true : false}
+            >First</Button>
+            <Button 
+              onClick={handlePrevPage}
+              disabled={page === 1 ? true : false}
+            >Prev</Button>
 
-      <Button active>{page}</Button>
-      {page + 1 <= Math.ceil(quantity/10) && <Button onClick={() => handleNextCustomPage(1)}>{page + 1}</Button>}
-      {page + 2 < Math.ceil(quantity/10) + 1 && <Button onClick={() => handleNextCustomPage(2)}>{page + 2}</Button>}
+            <Button active>{page}</Button>
+            {page + 1 <= Math.ceil(quantity/10) && <Button onClick={() => handleNextCustomPage(1)}>{page + 1}</Button>}
+            {page + 2 < Math.ceil(quantity/10) + 1 && <Button onClick={() => handleNextCustomPage(2)}>{page + 2}</Button>}
 
-      <Button 
-        onClick={handleNextPage}
-        disabled={page >= Math.ceil(quantity/10) ? true : false}
-      >Next</Button>
-      <Button
-        onClick={handleLastPage}
-        disabled={page >= Math.ceil(quantity/10) ? true : false}
-      >Last</Button>
+            <Button 
+              onClick={handleNextPage}
+              disabled={page >= Math.ceil(quantity/10) ? true : false}
+            >Next</Button>
+            <Button
+              onClick={handleLastPage}
+              disabled={page >= Math.ceil(quantity/10) ? true : false}
+            >Last</Button>
+          </>
+      }
     </PaginateContainer>
   )
 }

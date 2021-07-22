@@ -5,6 +5,10 @@ export const types = {
 
   startLoading: '[Loader] Start Loading',
   finishLoading: '[Loader] Finish Loading',
+  startCountLoading: '[Loader] Start Count Loading',
+  finishCountLoading: '[Loader] Finish Count Loading',
 
   page: '[Page] set Page',
+
+  error: '[Error] show Error',
 }

@@ -24,7 +24,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    dispatch(getStolenCount(keyword));
+    dispatch(getStolenCount());
     dispatch(getStolenBikes(page));
   }, [page, dispatch]);
 

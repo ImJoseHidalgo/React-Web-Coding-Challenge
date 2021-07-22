@@ -5,6 +5,10 @@ export const PaginateContainer = styled.section`
   justify-content: center;
   align-items: center;
   height: 100px;
+
+  @media only screen and (max-width: 768px) {
+    justify-content: space-between;
+  }
 `
 
 export const Button = styled.button`
@@ -31,4 +35,8 @@ export const Button = styled.button`
       background-color: #0E6AB4;
     }
   `}
+
+  @media only screen and (max-width: 768px) {
+    margin: 0;
+  }
 `

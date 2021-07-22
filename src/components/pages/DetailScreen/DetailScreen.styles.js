@@ -21,13 +21,28 @@ export const ImageContainer = styled.div`
   }
 
   ${props => props.map && css`
-    /* justify-content: space-between; */
     display: grid;
     grid-template-columns: 1fr 477px;
     & > p {
       line-height: 20px;
     }
   `}
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+
+    & > img {
+      width: 100%;
+      height: 100%;
+    }
+    
+    ${props => props.map && css`
+      grid-template-columns: 1fr;
+      & > p {
+        line-height: 20px;
+      }
+    `}
+  }
 `
 
 export const FeaturesContainer = styled.div`
@@ -44,6 +59,12 @@ export const FeaturesContainer = styled.div`
   & strong > span {
     color: #333;
     font-weight: 400;
+  }
+
+  @media only screen and (max-width: 768px) {
+    & > strong {
+      margin-bottom: 5px;
+    }
   }
 `
 

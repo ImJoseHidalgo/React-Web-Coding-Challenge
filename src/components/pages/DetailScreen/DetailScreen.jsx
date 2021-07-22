@@ -9,9 +9,8 @@ import useDate from '../../../hooks/useDate';
 import Loader from '../../ui/Loader/Loader';
 import { Date, DetailsContainer, FeaturesContainer, ImageContainer, IncidentContainer } from './DetailScreen.styles';
 
-const API_KEY = 'pk.eyJ1IjoiaW1qb3NlaGlkYWxnbyIsImEiOiJja290MG43MXUwMGJlMndubnU1Zzl3Ym9rIn0.-dtkqxqBOu_WoWzExl5PCA';
-
 const DetailScreen = () => {
+  const API_KEY = 'pk.eyJ1IjoiaW1qb3NlaGlkYWxnbyIsImEiOiJja290MG43MXUwMGJlMndubnU1Zzl3Ym9rIn0.-dtkqxqBOu_WoWzExl5PCA';
   const { id } = useParams();
   const dispatch = useDispatch();
   const { detail } = useSelector(state => state.bikes);
@@ -22,14 +21,24 @@ const DetailScreen = () => {
     detail.stolen_record?.created_at
   );
 
-  const locationData = {
-    width: 477,
-    height: 450,
-    latitude: detail.stolen_record?.latitude,
-    longitude: detail.stolen_record?.longitude,
-    zoom: 15
-  }
+  const query = window.matchMedia('(max-width: 768px)');
 
+  const locationData = query.matches
+    ? {
+        width: window.innerWidth * 0.9,
+        height: 400,
+        latitude: detail.stolen_record?.latitude,
+        longitude: detail.stolen_record?.longitude,
+        zoom: 15
+      }
+    : {
+        width: 477,
+        height: 450,
+        latitude: detail.stolen_record?.latitude,
+        longitude: detail.stolen_record?.longitude,
+        zoom: 15
+      };
+  
   useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(getStolenBikeById(id));

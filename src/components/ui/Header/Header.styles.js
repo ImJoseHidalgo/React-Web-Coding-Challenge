@@ -16,8 +16,28 @@ export const Container = styled.div`
     width: 100px;
     height: 100px;
   }
+
+  @media only screen and (max-width: 768px)  {
+    width: 90%;
+    height: 100px;
+
+    & a > img {
+      width: 60px;
+      height: 60px;
+    } 
+  }
 `
 
 export const Title = styled.div`
   margin-left: 2rem;
+
+  @media only screen and (max-width: 768px)  {
+    h1 {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+    h2 {
+      font-size: 18px;
+    }
+  }
 `

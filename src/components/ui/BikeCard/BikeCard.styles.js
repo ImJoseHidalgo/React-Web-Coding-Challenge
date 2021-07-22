@@ -21,6 +21,16 @@ export const Card = styled.div`
     object-fit: cover;
     border-radius: 5px 0 0 5px;
   }
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+
+    & > img {
+      width: 100%;
+      height: 100%;
+      border-radius: 5px 5px 0 0;
+    }
+  }
 `
 export const TextContainer = styled.div`
   padding: 30px 40px;
@@ -46,5 +56,10 @@ export const DetailsContainer = styled.div`
   & strong > span {
     color: #333;
     font-weight: 400;
+  }
+
+  @media only screen and (max-width: 768px) {
+    min-width: 100%;
+    grid-template-columns: 1fr;
   }
 `

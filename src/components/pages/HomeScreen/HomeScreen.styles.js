@@ -17,7 +17,6 @@ export const PaginateContainer = styled.section`
 `
 
 export const FiltersContainer = styled.section`
-  /* border: 1px solid red; */
   margin-bottom: 2rem;
 
   h2 {
@@ -29,12 +28,15 @@ export const Filters = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media only screen and (max-width: 768px){
+    flex-direction: column;
+  }
 `
 
 export const FormContainer = styled.form`
   display: flex;
   align-items: center;
-
 
   input {
     border-bottom: 1px solid #0E6AB4;
@@ -98,4 +100,12 @@ export const FormContainer = styled.form`
       border-left: 1px solid #0b518a;
     }
   `}
+
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+
+    input, button {
+      margin-bottom: 20px;
+    }
+  }
 `
